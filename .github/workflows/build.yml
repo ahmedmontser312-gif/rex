@@ -1,0 +1,26 @@
+name: Build C++ Binary
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup MSVC Compiler
+      uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Compile Source Code
+      run: |
+        echo "Starting compilation..."
+        # هنا أمر التجميع الشامل للملفات بتاعتك
+        cl.exe /EHsc /O2 src/*.cpp /Fe:elevator.exe
+        
+    - name: Upload Built Binary
+      uses: actions/upload-artifact@v4
+      with:
+        name: elevator-binary
+        path: elevator.exe
