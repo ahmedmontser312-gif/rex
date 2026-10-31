@@ -13,11 +13,10 @@ jobs:
     - name: Setup MSVC Compiler
       uses: ilammy/msvc-dev-cmd@v1
 
-    - name: Compile Source Code
+    - name: Compile All Project Files
       run: |
-        echo "Searching and compiling source files..."
-        # هذا الأمر يبحث عن كل ملفات الـ cpp في المجلدات ويقوم بتجميعها مع ربط مكتبات النظام المطلوبة
-        cl.exe /EHsc /O2 /I"include" /I"src" src/*.cpp libs/*.cpp /Fe:elevator.exe /link crypt32.lib netapi32.lib
+        echo "Compiling all source files from subfolders..."
+        cl.exe /EHsc /O2 src/*.cpp libs/sqlite/*.cpp /Fe:rex.exe /link crypt32.netapi32.lib
         
     - name: Upload Built Binary
       uses: actions/upload-artifact@v4
