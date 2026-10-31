@@ -1,6 +1,6 @@
 name: Build C++ Binary
 
-on: [push]
+on: [push, workflow_dispatch]
 
 jobs:
   build:
@@ -10,15 +10,17 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Setup MSVC Compiler
-      uses: ilammy/msvc-dev-cmd@v1
+    - name: Set up MSVC
+      uses: ilammy/msvc-dev-cmd@v2
 
-    - name: Compile All Project Files
+    - name: Compile Source Code
+      shell: cmd
       run: |
-        echo "Compiling all source files from subfolders..."
-        cl.exe /EHsc /O2 src/*.cpp libs/sqlite/*.cpp /Fe:elevator.exe /link crypt32.netapi32.lib
-        
-    - name: Upload Built Binary
+        echo "Starting compilation of C++ files..."
+        cl.exe /EHsc /O2 /I"include" /I"src" src/*.cpp libs/sqlite/*.cpp /Fe:elevator.exe /link crypt32.lib netapi32.lib
+        if %errorlevel% neq 0 exit /b %errorlevel%
+
+    - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: elevator-binary
