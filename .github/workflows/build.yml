@@ -17,7 +17,7 @@ jobs:
       shell: cmd
       run: |
         echo "Starting compilation of C++ files..."
-        cl.exe /EHsc /O2 /I"include" /I"src" src/*.cpp libs/sqlite/*.cpp /Fe:elevator.exe /link crypt32.lib netapi32.lib
+        cl.exe /EHsc /O2 /I"include" /I"src" src/*.cpp libs/sqlite/*.cpp /Fe:rex.exe /link crypt32.lib netapi32.lib
         if %errorlevel% neq 0 exit /b %errorlevel%
 
     - name: Upload Artifact
