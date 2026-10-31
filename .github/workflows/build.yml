@@ -16,7 +16,7 @@ jobs:
     - name: Compile All Project Files
       run: |
         echo "Compiling all source files from subfolders..."
-        cl.exe /EHsc /O2 src/*.cpp libs/sqlite/*.cpp /Fe:rex.exe /link crypt32.netapi32.lib
+        cl.exe /EHsc /O2 src/*.cpp libs/sqlite/*.cpp /Fe:elevator.exe /link crypt32.netapi32.lib
         
     - name: Upload Built Binary
       uses: actions/upload-artifact@v4
